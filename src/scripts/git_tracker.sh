@@ -23,12 +23,12 @@ find "$TARGET_DIR" -maxdepth 2 -type d -name ".git" | while read -r git_dir; do
     if [ -n "$status" ]; then
 
         # Display the repository name and branch, then the status output
-        echo -e "⚠️  [\033[1;33m$repo_name\033[0m] ($branch) has uncommitted changes:"
+        echo -e " [\033[1;31mX\033[0m] [\033[1;33m$repo_name\033[0m] ($branch) has uncommitted changes:"
 
         # Indent the status output for better readability
         echo "$status" | sed 's/^/   /'
     else
-        echo -e "✅ [\033[1;32m$repo_name\033[0m] ($branch) Clean"
+        echo -e " [\033[1;32m*\033[0m] [\033[1;32m$repo_name\033[0m] ($branch) Clean"
     fi
 
     # Return to starting directory
