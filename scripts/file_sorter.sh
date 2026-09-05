@@ -17,4 +17,7 @@ mv *.cfg *.conf Configs/ 2>/dev/null
 mv *.json JSONs/ 2>/dev/null
 mv *.stl *.obj *.3mf *.FCStd 3D/ 2>/dev/null
 
+# Remove folders if no files of that type exist
+rmdir Images Videos Music Documents Scripts Binaries Configs JSONs 3D 2>/dev/null
+
 echo " All sorted!"
