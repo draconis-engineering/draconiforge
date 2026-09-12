@@ -1,0 +1,15 @@
+# binaries
+/draconiforge
+/df
+/draconiforge-cli
+/goforge-cli
+
+# Go build cache
+*.exe
+*.test
+*.out
+
+# IDE / OS
+.DS_Store
+.idea/
+.vscode/
