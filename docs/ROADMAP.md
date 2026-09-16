@@ -3,6 +3,7 @@
 > CLI to streamline exhausting dev tasks. Binary: `draconiforge` (alias `df`, requires `~/.local/bin` first in PATH).
 
 ## Vision
+
 One binary, no config, safe by default. Every command aborts rather than destroys. `prework`/`postwork` bracket your day, `new` starts it.
 
 ---
@@ -13,8 +14,8 @@ One binary, no config, safe by default. Every command aborts rather than destroy
 - `prework` — fetch, abort if dirty/diverged, fast-forward pull (`internal/cli/prework.go`, `internal/cli/git.go`)
 - `postwork` — abort if dirty without `-m`, `git add -A`/`commit`/`push`, diverge check (`internal/cli/postwork.go`)
 - `new [name] -L <lang> -l <license>` — scaffold via `embed.FS` (`internal/scaffold/`, `internal/license/`)
-  - Languages: `go`, `python`, `shell`, `julia`, `node`
-  - Licenses: `gplv3` (default), `mit`, `apache-2.0`, `bsd-3`, `none`
+    - Languages: `go`, `python`, `shell`, `julia`, `node`
+    - Licenses: `gplv3` (default), `mit`, `apache-2.0`, `bsd-3`, `none`
 
 ## v0.3 — Done ✓ — Script runner (hybrid)
 
@@ -40,22 +41,23 @@ Go front, sh/ps1 back — future commands stay as scripts, run through Go.
 
 ## v0.6 — New templates v2
 
-- Flags for `new`: `--author`, `--module-path` (Go), `--python-version` — add config file `~/.config/draconiforge/config.yaml` for defaults.
-- Templates: add `rust`, `zig`; `--with-ci` GitHub Actions.
-- `new --from <template-repo>` — clone custom template.
+- [ ] Flags for `new`: `--author`, `--module-path` (Go), `--python-version` — add config file `~/.config/draconiforge/config.yaml` for defaults.
+- [ ] Templates: add `rust`, `zig`; `--with-ci` GitHub Actions.
+- [ ] `new --from <template-repo>` — clone custom template.
 
 ## v0.7 — Safety upgrades (future, opt-in)
 
-- `prework --stash` / autobranching — keep v1 abort, add flag: stash dirty, pull, pop; or `git switch -c wip/<date>`.
-- `postwork --amend`, `--force-with-lease` confirmation.
-- Undo log for `tidy`/`branch-clean`.
+- [ ] `prework --stash` / autobranching — keep v1 abort, add flag: stash dirty, pull, pop; or `git switch -c wip/<date>`.
+- [ ] `postwork --amend`, `--force-with-lease` confirmation.
+- [ ] Undo log for `tidy`/`branch-clean`
+- [ ] Tree-representation to folder structure
 
 ## Backlog
 
-- `df config init` — interactive setup for defaults.
-- `df update` — self-update via `go install` or GitHub releases.
-- Docs: `README.md` is empty — fill with install + 3 commands demo.
-- Shell completion: `draconiforge completion zsh|bash|fish` already from Cobra, add `make install-completion`.
+- [ ] `df config init` — interactive setup for defaults.
+- [ ] `df update` — self-update via `go install` or GitHub releases.
+- [ ] Docs: `README.md` is empty — fill with install + 3 commands demo.
+- [ ] Shell completion: `draconiforge completion zsh|bash|fish` already from Cobra, add `make install-completion`.
 
 ---
 
