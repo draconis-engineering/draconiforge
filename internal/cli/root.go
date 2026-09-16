@@ -20,6 +20,9 @@ func init() {
 	rootCmd.AddCommand(PreworkCmd)
 	rootCmd.AddCommand(PostworkCmd)
 	rootCmd.AddCommand(NewCmd)
+	rootCmd.AddCommand(RunCmd)
+	rootCmd.AddCommand(DoctorCmd)
+	rootCmd.AddCommand(SyncCmd)
 }
 
 func Execute() error {

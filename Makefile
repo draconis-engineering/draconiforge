@@ -22,12 +22,22 @@ build: ## Build ./draconiforge binary locally
 	go build -ldflags "$(LDFLAGS)" -o $(BIN) $(PKG)
 	@echo " -> ./$(BIN) ready (./$(BIN) --help ; ./$(BIN) prework --help)"
 
+DATADIR ?= $(PREFIX)/share
+SHAREDIR ?= $(DATADIR)/draconiforge/scripts
+
 install: build ## Install draconiforge globally to $(BINDIR) (default: ~/.local/bin)
 	@echo "Installing $(BIN) to $(DESTDIR)$(BINDIR)/$(BIN)..."
 	@mkdir -p $(DESTDIR)$(BINDIR)
 	@install -m 0755 $(BIN) $(DESTDIR)$(BINDIR)/$(BIN)
 	@ln -sf $(BIN) $(DESTDIR)$(BINDIR)/$(BIN_SHORT) 2>/dev/null || cp $(DESTDIR)$(BINDIR)/$(BIN) $(DESTDIR)$(BINDIR)/$(BIN_SHORT)
 	@echo " -> installed: $(DESTDIR)$(BINDIR)/$(BIN) + symlink $(BIN_SHORT)"
+	@if [ -d scripts ]; then \
+		echo "Installing scripts to $(DESTDIR)$(SHAREDIR)..."; \
+		mkdir -p $(DESTDIR)$(SHAREDIR); \
+		install -m 0755 scripts/*.sh $(DESTDIR)$(SHAREDIR)/ 2>/dev/null || true; \
+		install -m 0755 scripts/*.ps1 $(DESTDIR)$(SHAREDIR)/ 2>/dev/null || true; \
+		echo " -> scripts: $$(ls -1 $(DESTDIR)$(SHAREDIR) 2>/dev/null | tr '\n' ' ')"; \
+	fi
 	@echo " -> version: $$($(DESTDIR)$(BINDIR)/$(BIN) version 2>/dev/null || $(DESTDIR)$(BINDIR)/$(BIN) --help | head -1)"
 	@if ! echo "$$PATH" | tr ':' '\n' | grep -qx "$(BINDIR)"; then \
 		echo ""; echo "⚠  $(BINDIR) not in PATH. Add to your shell:"; \
@@ -45,7 +55,8 @@ install: build ## Install draconiforge globally to $(BINDIR) (default: ~/.local/
 
 uninstall: ## Remove installed binary
 	rm -f $(DESTDIR)$(BINDIR)/$(BIN) $(DESTDIR)$(BINDIR)/$(BIN_SHORT)
-	@echo "Removed $(DESTDIR)$(BINDIR)/$(BIN) and $(BIN_SHORT)"
+	rm -rf $(DESTDIR)$(SHAREDIR)
+	@echo "Removed $(DESTDIR)$(BINDIR)/$(BIN) and $(BIN_SHORT) and $(DESTDIR)$(SHAREDIR)"
 
 clean: ## Remove built binaries
 	rm -f $(BIN) $(BIN_SHORT) df
