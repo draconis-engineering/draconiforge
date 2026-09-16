@@ -8,6 +8,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"regexp"
+	"slices"
 	"strings"
 	"text/template"
 	"time"
@@ -41,12 +42,7 @@ var nameRe = regexp.MustCompile(`^[a-zA-Z0-9][a-zA-Z0-9._-]*$`)
 
 func IsValidLanguage(lang string) bool {
 	l := strings.ToLower(strings.TrimSpace(lang))
-	for _, v := range validLanguages {
-		if v == l {
-			return true
-		}
-	}
-	return false
+	return slices.Contains(validLanguages, l)
 }
 
 func NormalizeLanguage(lang string) string {
