@@ -1,8 +1,8 @@
 ## Draconiforge (df) Makefile
-## Simple binary you can run globally: `make install` -> `draconiforge prework` (alias: df)
+## Simple binary you can run globally: `make install` -> `draconiforge prework` (alias: forge)
 
 BIN       := draconiforge
-BIN_SHORT := df
+BIN_SHORT := forge
 PKG       := ./cmd/goforge-cli
 
 # Install location - respects PREFIX/BINDIR, defaults to user-local (no sudo needed)
