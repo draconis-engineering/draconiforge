@@ -5,10 +5,10 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "draconiforge",
-	Aliases: []string{"df"},
-	Short: "draconiforge (df) - streamline exhausting dev tasks",
-	Long:  `Draconiforge (df) is a CLI to automate tedious dev workflows.`,
+	Use:     "draconiforge",
+	Aliases: []string{"forge"},
+	Short:   "draconiforge (forge) - streamline exhausting dev tasks",
+	Long:    `Draconiforge (forge) is a CLI to automate tedious dev workflows.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		// Default behavior when no subcommand is specified
 		_ = cmd.Help()
