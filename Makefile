@@ -1,5 +1,5 @@
-## Draconiforge (df) Makefile
-## Simple binary you can run globally: `make install` -> `draconiforge prework` (alias: forge)
+## Draconiforge (forge) Makefile
+## Simple binary you can run globally: `make install` -> `forge prework` (also `draconiforge`)
 
 BIN       := draconiforge
 BIN_SHORT := forge
@@ -20,7 +20,7 @@ LDFLAGS := -s -w -X github.com/draconis-engineering/draconiforge/internal/cli.ve
 build: ## Build ./draconiforge binary locally
 	@echo "Building $(BIN) $(VERSION) ($(COMMIT))..."
 	go build -ldflags "$(LDFLAGS)" -o $(BIN) $(PKG)
-	@echo " -> ./$(BIN) ready (./$(BIN) --help ; ./$(BIN) prework --help)"
+	@echo " -> ./$(BIN) ready (./$(BIN) --help ; forge --help)"
 
 DATADIR ?= $(PREFIX)/share
 SHAREDIR ?= $(DATADIR)/draconiforge/scripts
@@ -38,19 +38,10 @@ install: build ## Install draconiforge globally to $(BINDIR) (default: ~/.local/
 		install -m 0755 scripts/*.ps1 $(DESTDIR)$(SHAREDIR)/ 2>/dev/null || true; \
 		echo " -> scripts: $$(ls -1 $(DESTDIR)$(SHAREDIR) 2>/dev/null | tr '\n' ' ')"; \
 	fi
-	@echo " -> version: $$($(DESTDIR)$(BINDIR)/$(BIN) version 2>/dev/null || $(DESTDIR)$(BINDIR)/$(BIN) --help | head -1)"
+	@echo " -> version: $($(DESTDIR)$(BINDIR)/$(BIN) version 2>/dev/null || $(DESTDIR)$(BINDIR)/$(BIN) --help | head -1)"
 	@if ! echo "$$PATH" | tr ':' '\n' | grep -qx "$(BINDIR)"; then \
 		echo ""; echo "⚠  $(BINDIR) not in PATH. Add to your shell:"; \
 		echo "   echo 'export PATH=\"\$$HOME/.local/bin:\$$PATH\"' >> ~/.zshrc  # or ~/.bashrc"; \
-	fi
-	@if which df >/dev/null 2>&1 && [ "$$(which df)" != "$(DESTDIR)$(BINDIR)/$(BIN_SHORT)" ] && [ "$$(which df)" != "$(BINDIR)/$(BIN_SHORT)" ]; then \
-		echo ""; echo "⚠  'df' collides with system /usr/bin/df (disk free)."; \
-		echo "   Your PATH has $(BINDIR) AFTER /usr/bin, so 'df' runs the system tool."; \
-		echo "   Fix: put ~/.local/bin FIRST:"; \
-		echo "     export PATH=\"\$$HOME/.local/bin:\$$PATH\""; \
-		echo "   Then 'df prework' will work. Until then use 'draconiforge prework' (always works)."; \
-		echo "   Current: which df = $$(which df)"; \
-		echo "            which draconiforge = $$(which draconiforge 2>/dev/null || echo $(DESTDIR)$(BINDIR)/$(BIN))"; \
 	fi
 
 uninstall: ## Remove installed binary
@@ -59,7 +50,7 @@ uninstall: ## Remove installed binary
 	@echo "Removed $(DESTDIR)$(BINDIR)/$(BIN) and $(BIN_SHORT) and $(DESTDIR)$(SHAREDIR)"
 
 clean: ## Remove built binaries
-	rm -f $(BIN) $(BIN_SHORT) df
+	rm -f $(BIN) $(BIN_SHORT) df draconiforge
 
 vet: ## Run go vet
 	go vet ./...
